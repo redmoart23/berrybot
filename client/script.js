@@ -82,7 +82,7 @@ const handleSubmit = async (e) => {
 
   loader(messageDiv);
 
-  const response = await fetch("http://ec2-18-191-215-244.us-east-2.compute.amazonaws.com:8080/predict", {
+  const response = await fetch("https://chatberry.onrender.com/predict", {
     method: 'POST',
     body: JSON.stringify({ message: data.get('prompt') }),
     mode: 'cors',
