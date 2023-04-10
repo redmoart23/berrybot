@@ -71,12 +71,13 @@ def create_context(question, df, max_len=1800, size="ada"):
 
 def answer_question(
     df,
-    model="text-davinci-003",
+    # model="text-davinci-003",
+    model="gpt-4",
     question="",
-    max_len=1000,
+    max_len=5000,
     size="ada",
     debug=False,
-    max_tokens=1000,
+    max_tokens=5000,
     stop_sequence=None
 ):
     """
@@ -96,22 +97,27 @@ def answer_question(
     conversation = ""
 
     try:
-        # Create a completions using the question and context
         COMPANY = "Castleberry Media"
-        prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user. Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n\nContext: {context}\n\n---\n\nQuestion: {question}\nAnswer:"
-       
+        prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user.\
+                  Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n\nContext: {context}\n\n---\n\nQuestion: {question}\nAnswer:"
+
+        messages = [
+            {"role": "system", "content": f"{prompt}"}
+        ]
+
         conversation += prompt
-        response = openai.Completion.create(
-            prompt=conversation,
-            temperature=0.7,
+        messages.append({"role" : "user", "content":conversation})
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
             max_tokens=max_tokens,
-            top_p=1,
+            temperature=0.3,
             frequency_penalty=0.5,
             presence_penalty=0,
+            top_p=1,
             stop=stop_sequence,
-            model=model,
         )
-        answer = response["choices"][0]["text"].strip()
+        answer = response["choices"][0]["message"]["content"]
         conversation += answer
         return answer
     except Exception as e:
