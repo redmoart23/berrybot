@@ -12,7 +12,6 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "xyz**"
 openai.api_key = os.environ["OPENAI_API_KEY"]
-#openai.api_key = os.getenv('OPENAI_API_KEY')
 
 CORS(app)
 
@@ -74,7 +73,7 @@ def answer_question(
     # model="text-davinci-003",
     model="gpt-4",
     question="",
-    max_len=5000,
+    max_len=1800,
     size="ada",
     debug=False,
     max_tokens=5000,
