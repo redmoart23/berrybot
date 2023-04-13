@@ -71,9 +71,9 @@ def create_context(question, df, max_len=1800, size="ada"):
 def answer_question(
     df,
     # model="text-davinci-003",
-    model="gpt-4",
+    model="gpt-4-32k",
     question="",
-    max_len=1800,
+    max_len=2000,
     size="ada",
     debug=False,
     max_tokens=5000,
@@ -103,8 +103,8 @@ def answer_question(
         messages = [
             {"role": "system", "content": f"{prompt}"}
         ]
-
-        conversation += prompt
+        
+        conversation = "Context: " + context + '\n\n --- \n\n + ' +"Question: " + question
         messages.append({"role" : "user", "content":conversation})
         response = openai.ChatCompletion.create(
             model=model,
