@@ -109,7 +109,7 @@ def answer_question(
             messages=messages,
             max_tokens=max_tokens,
             temperature=0.3,
-            frequency_penalty=0.5,
+            frequency_penalty=0.1,
             presence_penalty=0,
             top_p=1,
             stop=stop_sequence,

@@ -5,6 +5,8 @@ import user from './assets/user.svg';
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
+const newchat = document.querySelector('.side-menu-new-chat-button');
+newchat.addEventListener("click", () => { alert("This feature will be available soon😉") })
 
 let loadInterval;
 
@@ -97,7 +99,7 @@ const handleSubmit = async (e) => {
   if (response.ok) {
     const data = await response.json();
     typeText(messageDiv, data.answer)
-  }else{
+  } else {
     const err = await response.text();
     messageDiv.innerHTML = "Something went wrong 😞"
 
@@ -107,7 +109,7 @@ const handleSubmit = async (e) => {
 
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
-  if (e.keyCode === 13) {
+  if (e.key === 'Enter') {
     handleSubmit(e)
     const element = document.getElementById('welcome-message');
     element.style.display = 'none';

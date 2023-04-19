@@ -11,16 +11,24 @@
 
 <body>
   <div id="app">
-    <div id="chat_container">
+    <aside id="side-menu">
 
+      <div class="side-menu-new-chat-button">
+        <span>+</span>
+        New Chat
+      </div>
+
+    </aside>
+
+    <div id="chat_container">
       <div id="welcome-message">
         <h1> Welcome to BerryBot <br> Ask something!</h1>
         <img class="cb-media-logo" src="assets/cbmedia-logo-removebg-preview.png" width="150" alt="">
       </div>
-
     </div>
+
     <form>
-      <textarea name="prompt" cols="1" rows="1" placeholder="Ask ChatBerry..."></textarea>
+      <textarea name="prompt" cols="1" rows="1" placeholder="Send a message..."></textarea>
       <button type="submit"><img src="assets/send.svg"></button>
     </form>
 
