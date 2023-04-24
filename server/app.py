@@ -101,7 +101,7 @@ def answer_question(
         messages = [
             {"role": "system", "content": f"{prompt}"}
         ]
-        conversation = "Context: " + context + '\n\n --- \n\n + ' + "Question: " + question
+        conversation = "Context: " + context + '\n\n --- \n\n + ' + "Question: " + question + "\n\n"
 
         messages.append({"role": "user", "content": conversation})
         response = openai.ChatCompletion.create(
