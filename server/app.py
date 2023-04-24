@@ -76,8 +76,8 @@ def answer_question(
     max_len=1800,
     size="ada",
     debug=False,
-    max_tokens=5000,
-    stop_sequence=None
+    max_tokens=8000,
+    stop_sequence="\n\n"
 ):
     """
     Answer a question based on the most similar context from the dataframe texts
@@ -96,7 +96,7 @@ def answer_question(
     try:
         COMPANY = "Castleberry Media"
         prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user.\
-                  Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n\n"
+                  Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
 
         messages = [
             {"role": "system", "content": f"{prompt}"}
