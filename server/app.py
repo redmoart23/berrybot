@@ -71,7 +71,7 @@ def create_context(question, df, max_len=1800, size="ada"):
 def answer_question(
     df,
     # model="text-davinci-003",
-    model="gpt-3.5-turbo",
+    model="gpt-4",
     question="",
     max_len=1800,
     size="ada",
