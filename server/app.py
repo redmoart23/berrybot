@@ -76,7 +76,7 @@ def answer_question(
     max_len=1800,
     size="ada",
     debug=False,
-    max_tokens=8000,
+    max_tokens=5000,
     stop_sequence="\n\n"
 ):
     """
