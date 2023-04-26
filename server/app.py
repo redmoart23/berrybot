@@ -77,7 +77,7 @@ def answer_question(
     size="ada",
     debug=False,
     max_tokens=5000,
-    stop_sequence="\n\n"
+    stop_sequence=None
 ):
     """
     Answer a question based on the most similar context from the dataframe texts
@@ -99,7 +99,7 @@ def answer_question(
                   Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
 
         messages = [
-            {"role": "system", "content": f"{prompt}"}
+            {"role": "assistant", "content": f"{prompt}"}
         ]
         conversation = "Context: " + context + '\n\n --- \n\n + ' + "Question: " + question + "\n\n"
 

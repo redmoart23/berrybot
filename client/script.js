@@ -1,12 +1,24 @@
 import bot from './assets/bot.svg';
 import user from './assets/user.svg';
-
-
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
+// const historyElement = document.querySelector('.chat-history')
+// const textAreaElement = document.querySelector('textarea')
 const newchat = document.querySelector('.side-menu-new-chat-button');
-newchat.addEventListener("click", () => { alert("This feature will be available soon😉") })
+
+
+// function clearTextArea() {
+//   textAreaElement.value = "";
+//   chatContainer.innerHTML = ""
+// }
+
+// function changeInput(value) {
+//   const textAreaNewElement = document.querySelector("textarea");
+//   textAreaNewElement.value = value;
+// }
+
+newchat.addEventListener("click", () => { alert("This feature will be available soon") })
 
 let loadInterval;
 
@@ -68,20 +80,16 @@ const handleSubmit = async (e) => {
   const data = new FormData(form);
 
   //user's chatstripe
-
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
-
+  let textareaValue = textAreaElement.value
   form.reset();
 
   //bot's chatstripe
-
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
-
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   const messageDiv = document.getElementById(uniqueId);
-
   loader(messageDiv);
 
   const response = await fetch("https://chatberry.onrender.com/predict", {
@@ -98,11 +106,18 @@ const handleSubmit = async (e) => {
 
   if (response.ok) {
     const data = await response.json();
+
+    // if (data) {
+    //   const pElement = document.createElement('p')
+    //   pElement.textContent = textareaValue.substring(0, 20) + "...";
+    //   pElement.addEventListener('click', () => changeInput(pElement.textContent))
+    //   historyElement.append(pElement)
+    // }
+
     typeText(messageDiv, data.answer)
   } else {
     const err = await response.text();
     messageDiv.innerHTML = "Something went wrong 😞"
-
     alert(err);
   }
 }
