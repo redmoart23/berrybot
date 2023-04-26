@@ -126,7 +126,7 @@ form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
   if (e.key === 'Enter') {
     handleSubmit(e)
-    const element = document.getElementById('welcome-message');
+    const element = document.querySelector('#welcome-message');
     element.style.display = 'none';
   }
 });
