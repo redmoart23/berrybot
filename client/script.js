@@ -81,7 +81,7 @@ const handleSubmit = async (e) => {
 
   //user's chatstripe
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
-  let textareaValue = textAreaElement.value
+  //let textareaValue = textAreaElement.value
   form.reset();
 
   //bot's chatstripe
