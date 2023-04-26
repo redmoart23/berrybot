@@ -94,14 +94,22 @@ def answer_question(
         print("\n\n")
 
     try:
-        COMPANY = "Castleberry Media"
-        prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user.\
-                  Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
+        COMPANY = "Castleberry"
+        # prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user.\
+        #           Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
+
+        prompt = f"""You are an AI assistant from {COMPANY} providing helpful advice. You have been given information about Castleberry’s products and services.
+                    The user will ask you questions and demand requests. 
+                    Provide a conversational answer based on the context provided.
+                    You should only provide hyperlinks that reference the context below. Do NOT make up hyperlinks.
+                    If you can't find the answer in the context below, just say "Hmm, I'm not sure." Don't try to make up an answer.
+                    Respond in the language that the user uses"""
 
         messages = [
             {"role": "assistant", "content": f"{prompt}"}
         ]
-        conversation = "Context: " + context + '\n\n --- \n\n + ' + "Question: " + question + "\n\n"
+        #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
+        conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
 
         messages.append({"role": "user", "content": conversation})
         response = openai.ChatCompletion.create(
@@ -115,7 +123,7 @@ def answer_question(
             stop=stop_sequence,
         )
         answer = response["choices"][0]["message"]["content"]
-        conversation += answer
+        #conversation += answer
         return answer
     except Exception as e:
         print(e)
