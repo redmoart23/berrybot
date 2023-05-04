@@ -98,12 +98,12 @@ def answer_question(
         # prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user.\
         #           Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
 
-        prompt = f"""You are an AI assistant from {COMPANY} providing helpful advice. You have been given information about Castleberry’s products and services.
-                    The user will ask you questions and demand requests. 
-                    """
+        prompt = f"You are an AI assistant from {COMPANY} providing helpful advice. \
+                   You have been given information about Castleberry’s products and services. \
+                   The user will ask you questions and demand requests."
 
         messages = [
-            {"role": "assistant", "content": f"{prompt}"}
+            {"role": "assistant", "content": prompt}
         ]
         #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
         conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
