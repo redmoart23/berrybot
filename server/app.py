@@ -100,10 +100,7 @@ def answer_question(
 
         prompt = f"""You are an AI assistant from {COMPANY} providing helpful advice. You have been given information about Castleberry’s products and services.
                     The user will ask you questions and demand requests. 
-                    Provide a conversational answer based on the context provided.
-                    You should only provide hyperlinks that reference the context below. Do NOT make up hyperlinks.
-                    If you can't find the answer in the context below, just say "Hmm, I'm not sure." Don't try to make up an answer.
-                    Respond in the language that the user uses"""
+                    """
 
         messages = [
             {"role": "assistant", "content": f"{prompt}"}
@@ -117,7 +114,7 @@ def answer_question(
             messages=messages,
             max_tokens=max_tokens,
             temperature=0.3,
-            frequency_penalty=0.1,
+            frequency_penalty=0,
             presence_penalty=0,
             top_p=1,
             stop=stop_sequence,
