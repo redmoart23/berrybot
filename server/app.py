@@ -99,14 +99,17 @@ def answer_question(
         #           Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
 
         prompt = f"You are an AI assistant from {COMPANY} providing helpful advice. \
-                   You have been given information about Castleberry’s products and services. \
+                   You have been given information about Castleberry products and services. \
                    The user will ask you questions and demand requests."
 
         messages = [
-            {"role": "assistant", "content": prompt}
+            {"role": "system", "content": prompt}
         ]
         #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
-        conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
+        #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
+        
+        
+        conversation = context + '\n\n --- \n\n + ' + question
 
         messages.append({"role": "user", "content": conversation})
         response = openai.ChatCompletion.create(
