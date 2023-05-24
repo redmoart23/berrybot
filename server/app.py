@@ -11,7 +11,8 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "xyz**"
-openai.api_key = os.environ["OPENAI_API_KEY"]
+openai.api_key = "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"
+#openai.api_key = os.environ["OPENAI_API_KEY"]
 
 CORS(app)
 
@@ -70,7 +71,6 @@ def create_context(question, df, max_len=1800, size="ada"):
 
 def answer_question(
     df,
-    # model="text-davinci-003",
     model="gpt-4",
     question="",
     max_len=1800,
@@ -93,21 +93,25 @@ def answer_question(
         print("Context:\n" + context)
         print("\n\n")
 
+
+    conversation = ""
     try:
         COMPANY = "Castleberry"
         # prompt = f"You can say hi when the user says hi, be conversational, say thank you and be helpful to the user.\
         #           Be as kind as possible.\nAnswer questions as if you worked at {COMPANY}.\n\n"
 
-        prompt = f"You are an AI assistant from {COMPANY} providing helpful advice. \
-                   You have been given information about Castleberry products and services. \
-                   The user will ask you questions and demand requests.\n\n\nContext: {context}\n\n---\n\nQuestion: {question}\nAnswer:"
+        messages = []
+        prompt = f"You are an AI system from {COMPANY} providing helpful advice. \
+                    follow the instructions of the user based on the chat's history.\
+                    You have been given information about Castleberry's products provided in the following context.\n\nContext: {context}\n\n"
 
         messages = [
             {"role": "system", "content": prompt}
         ]
         #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
-        #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n"
         #conversation = context + '\n\n --- \n\n + ' + question
+        #conversation = "Context: " + context + '\n\n --- \n\n' + "Question: " + question + "\n\n --- \n\n" + "\nAnswer:"
+        #conversation = conversation + question
 
         messages.append({"role": "user", "content": question})
         response = openai.ChatCompletion.create(
@@ -121,7 +125,7 @@ def answer_question(
             stop=stop_sequence,
         )
         answer = response["choices"][0]["message"]["content"]
-        #conversation += answer
+        messages.append({"role": "assistant", "content": answer})
         return answer
     except Exception as e:
         print(e)
