@@ -11,8 +11,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "xyz**"
-openai.api_key = "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"
-#openai.api_key = os.environ["OPENAI_API_KEY"]
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 CORS(app)
 
