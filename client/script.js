@@ -2,25 +2,12 @@ import bot from './assets/bot.svg';
 import user from './assets/user.svg';
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
-
-// const historyElement = document.querySelector('.chat-history')
-// const textAreaElement = document.querySelector('textarea')
 const newchat = document.querySelector('.side-menu-new-chat-button');
-
-
-// function clearTextArea() {
-//   textAreaElement.value = "";
-//   chatContainer.innerHTML = ""
-// }
-
-// function changeInput(value) {
-//   const textAreaNewElement = document.querySelector("textarea");
-//   textAreaNewElement.value = value;
-// }
 
 newchat.addEventListener("click", () => { alert("This feature will be available soon") })
 
 let loadInterval;
+let chatHistory = [];
 
 function loader(element) {
   element.textContent = '';
@@ -92,10 +79,13 @@ const handleSubmit = async (e) => {
   const messageDiv = document.getElementById(uniqueId);
   loader(messageDiv);
 
+  let question = { role: 'user', content: data.get('prompt') };
+  chatHistory.push(question);
+
   const response = await fetch("https://chatberry.onrender.com/predict", {
   //const response = await fetch("http://localhost:8080/predict", {
     method: 'POST',
-    body: JSON.stringify({ message: data.get('prompt') }),
+    body: JSON.stringify(chatHistory),
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
@@ -108,12 +98,8 @@ const handleSubmit = async (e) => {
   if (response.ok) {
     const data = await response.json();
 
-    // if (data) {
-    //   const pElement = document.createElement('p')
-    //   pElement.textContent = textareaValue.substring(0, 20) + "...";
-    //   pElement.addEventListener('click', () => changeInput(pElement.textContent))
-    //   historyElement.append(pElement)
-    // }
+    let answer_object = { role: 'assistant', content: data.answer }
+    chatHistory.push(answer_object);
 
     typeText(messageDiv, data.answer)
   } else {
